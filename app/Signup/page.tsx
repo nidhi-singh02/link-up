@@ -368,7 +368,7 @@ const SignUp = () => {
                           </span>
                         ) : (
                           <>
-                            <span className="flex justify-center">
+                            <span className="flex flex-col gap-4 items-center justify-center">
                               <div className="bg-[#FFF0FD] flex justify-between items-center mt-5 text-[#F24E80] text-lg w-72 px-7 py-4 rounded-full">
                                 <LogInWithAnonAadhaar
                                   nullifierSeed={1234}
@@ -383,7 +383,7 @@ const SignUp = () => {
                                 <p>{anonAadhaar?.status}</p>
                               </div>
                               <p>Or</p>
-                              <IDKitWidget
+                              {/* <IDKitWidget
                                 app_id={`app_linkup`}
                                 action=""
                                 onSuccess={onSuccess}
@@ -395,7 +395,7 @@ const SignUp = () => {
                                     Verify with World ID
                                   </button>
                                 )}
-                              </IDKitWidget>
+                              </IDKitWidget> */}
                             </span>
                           </>
                         )}
