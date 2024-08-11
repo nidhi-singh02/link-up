@@ -32,7 +32,9 @@ export default function Page() {
   const wallets = [new PetraWallet()];
   const router = useRouter();
   const handleWalletConnect = (address: string) => {
-    router.push("/Home");
+    if (address) {
+      router.push("/Home");
+    }
   };
   return (
     <AptosWalletAdapterProvider plugins={wallets} autoConnect={false}>
