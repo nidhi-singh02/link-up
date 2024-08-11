@@ -22,8 +22,7 @@ const Tabs = (data) => {
   const [rotation, setRotation] = useState(0);
   const [swipeDirection, setSwipeDirection] = useState("");
 
-  const [datum, setDatum] = useState(data)
-
+  const [datum, setDatum] = useState(data);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -56,11 +55,10 @@ const Tabs = (data) => {
     trackMouse: true,
   });
 
-  console.log("data",data);
-console.log("type", typeof(data));
+  console.log("data", data);
+  console.log("type", typeof data);
 
-  console.log("datum",datum);
-  
+  console.log("datum", datum);
 
   return (
     <div>
@@ -82,9 +80,9 @@ console.log("type", typeof(data));
       <div className="mt-6">
         {activeTab === "Search Partners" && (
           <div className="relative flex flex-col items-center">
-            { data.lenght > 0 &&  data.profile.map((user, index) => (
+            {users.slice(currentIndex, currentIndex + 3).map((user, index) => (
               <div
-                key={user.uuid}
+                key={user.id}
                 className={`absolute w-[380px] rounded-3xl h-[450px] mt-6 bg-white shadow-lg flex items-center justify-center transform transition-transform duration-300 ${
                   index === 0 && swipeDirection
                     ? `translate-x-${
@@ -94,16 +92,16 @@ console.log("type", typeof(data));
                 } ${index === 0 ? "" : "rotate-6"}`}
                 {...(index === 0 ? swipeHandlers : {})}
                 style={{
-                  zIndex: data.length - index,
+                  zIndex: users.length - index,
                   transform: `rotate(${index === 0 ? rotation : 6}deg)`,
                   overflow: "hidden",
                 }}
               >
-                {/* <Image
-                  src={user.profile.image}
-                  alt={user.profile.name}
+                <Image
+                  src={user.image}
+                  alt={user.name}
                   className="object-cover w-full h-full"
-                /> */}
+                />
                 <div className="absolute top-5 right-2 p-2 rounded-full ">
                   <p className="text-[#F24E80] bg-white text-[14px] p-2 rounded-full font-semibold">
                     View Profile
@@ -140,19 +138,7 @@ console.log("type", typeof(data));
             <Image src={event} alt="Event" />
           </div>
         )}
-
-
       </div>
-
-
-<div>
-  <p>hello</p>
-{/* <p>{datum.map((Data)=>(
-  <p>{Data.match_percentage}</p>
-))}</p> */}
-</div>
-
-
     </div>
   );
 };
