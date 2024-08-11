@@ -17,6 +17,7 @@ import { polygonAmoy, coreDao } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const queryClient = new QueryClient();
 const config = getDefaultConfig({
@@ -29,7 +30,10 @@ const config = getDefaultConfig({
 export default function Page() {
   const selectedNetwork = useSelector((state: RootState) => state.auth.network);
   const wallets = [new PetraWallet()];
-
+  const router = useRouter();
+  const handleWalletConnect = (address: string) => {
+    router.push("/Home");
+  };
   return (
     <AptosWalletAdapterProvider plugins={wallets} autoConnect={false}>
       <WagmiProvider config={config}>
@@ -68,6 +72,11 @@ export default function Page() {
                                 (!authenticationStatus ||
                                   authenticationStatus === "authenticated");
 
+                              if (connected) {
+                                console.log("ethadd", account.address);
+                                handleWalletConnect(account.address);
+                              }
+
                               return (
                                 <>
                                   {!connected ? (
@@ -86,18 +95,39 @@ export default function Page() {
                                       Wrong network
                                     </button>
                                   ) : (
-                                    <div className="wallet-info-container">
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        gap: 12,
+                                      }}
+                                    >
                                       <button
                                         onClick={openChainModal}
-                                        className="wallet-info-button"
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
                                         type="button"
                                       >
                                         {chain.hasIcon && (
-                                          <div className="wallet-icon">
+                                          <div
+                                            style={{
+                                              background: chain.iconBackground,
+                                              width: 12,
+                                              height: 12,
+                                              borderRadius: 999,
+                                              overflow: "hidden",
+                                              marginRight: 4,
+                                            }}
+                                          >
                                             {chain.iconUrl && (
                                               <img
                                                 alt={chain.name ?? "Chain icon"}
                                                 src={chain.iconUrl}
+                                                style={{
+                                                  width: 12,
+                                                  height: 12,
+                                                }}
                                               />
                                             )}
                                           </div>
@@ -107,13 +137,9 @@ export default function Page() {
 
                                       <button
                                         onClick={openAccountModal}
-                                        className="wallet-info-button"
                                         type="button"
                                       >
                                         {account.displayName}
-                                        {account.displayBalance
-                                          ? ` (${account.displayBalance})`
-                                          : ""}
                                       </button>
                                     </div>
                                   )}
