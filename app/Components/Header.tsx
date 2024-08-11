@@ -31,7 +31,7 @@ export default function Header() {
         </select>
         <Link href="/Login">
           <button className="text-white bg-[#F24E80] px-4 py-2 rounded-full">
-            Find Love
+            Meet Degens
           </button>
         </Link>
       </div>

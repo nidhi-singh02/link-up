@@ -64,7 +64,7 @@ export default function Home() {
           <div className="flex justify-center items-start">
             <Link href="/Login">
               <button className="text-white mt-5 drop-shadow-xl bg-[#F24E80] px-7 py-4 rounded-full">
-                Find Love
+                Meet Degens
               </button>
             </Link>
             <Image
@@ -189,7 +189,7 @@ export default function Home() {
               </div>
               <div className="flex justify-center mt-4">
                 <p className="playfairfont text-5xl italic text-white p-5 px-10 rounded-3xl bg-[#F24E80] text-center">
-                  Find love on LinkUp
+                  Meet Degens on LinkUp
                 </p>
               </div>
               <div className="flex justify-center mt-10 gap-40">
