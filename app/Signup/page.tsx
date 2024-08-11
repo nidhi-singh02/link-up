@@ -259,116 +259,111 @@ const SignUp = () => {
                         {anonAadhaar.status === "logged-in" ? (
                           <span className="flex justify-center">
                             {(() => {
-                              if (selectedNetwork === "Celo") {
-                                return (
-                                  <>
-                                    {" "}
-                                    <ConnectButton.Custom>
-                                      {({
-                                        account,
-                                        chain,
-                                        openAccountModal,
-                                        openChainModal,
-                                        openConnectModal,
-                                        authenticationStatus,
-                                        mounted,
-                                      }) => {
-                                        const ready =
-                                          mounted &&
-                                          authenticationStatus !== "loading";
-                                        const connected =
-                                          ready &&
-                                          account &&
-                                          chain &&
-                                          (!authenticationStatus ||
-                                            authenticationStatus ===
-                                              "authenticated");
+                              return (
+                                <>
+                                  {" "}
+                                  <ConnectButton.Custom>
+                                    {({
+                                      account,
+                                      chain,
+                                      openAccountModal,
+                                      openChainModal,
+                                      openConnectModal,
+                                      authenticationStatus,
+                                      mounted,
+                                    }) => {
+                                      const ready =
+                                        mounted &&
+                                        authenticationStatus !== "loading";
+                                      const connected =
+                                        ready &&
+                                        account &&
+                                        chain &&
+                                        (!authenticationStatus ||
+                                          authenticationStatus ===
+                                            "authenticated");
 
-                                        if (connected) {
-                                          console.log(
-                                            "ethadd",
-                                            account.address
-                                          );
-                                          handleWalletConnect(account.address);
-                                        }
+                                      if (connected) {
+                                        console.log("ethadd", account.address);
+                                        handleWalletConnect(account.address);
+                                      }
 
-                                        return (
-                                          <>
-                                            {!connected ? (
-                                              <button
-                                                onClick={openConnectModal}
-                                                className="bg-[#F24E80] flex justify-center gap-10 items-center mt-5 text-white text-lg w-72 py-4 rounded-full"
-                                              >
-                                                <RiWallet3Fill className="text-[#F24E80] bg-white px-2 rounded-full text-4xl" />
-                                                Login with Wallet
-                                              </button>
-                                            ) : chain.unsupported ? (
+                                      return (
+                                        <>
+                                          {!connected ? (
+                                            <button
+                                              onClick={openConnectModal}
+                                              className="bg-[#F24E80] flex justify-center gap-10 items-center mt-5 text-white text-lg w-72 py-4 rounded-full"
+                                            >
+                                              <RiWallet3Fill className="text-[#F24E80] bg-white px-2 rounded-full text-4xl" />
+                                              Login with Wallet
+                                            </button>
+                                          ) : chain.unsupported ? (
+                                            <button
+                                              onClick={openChainModal}
+                                              type="button"
+                                            >
+                                              Wrong network
+                                            </button>
+                                          ) : (
+                                            <div
+                                              style={{
+                                                display: "flex",
+                                                gap: 12,
+                                              }}
+                                            >
                                               <button
                                                 onClick={openChainModal}
-                                                type="button"
-                                              >
-                                                Wrong network
-                                              </button>
-                                            ) : (
-                                              <div
                                                 style={{
                                                   display: "flex",
-                                                  gap: 12,
+                                                  alignItems: "center",
                                                 }}
+                                                type="button"
                                               >
-                                                <button
-                                                  onClick={openChainModal}
-                                                  style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                  }}
-                                                  type="button"
-                                                >
-                                                  {chain.hasIcon && (
-                                                    <div
-                                                      style={{
-                                                        background:
-                                                          chain.iconBackground,
-                                                        width: 12,
-                                                        height: 12,
-                                                        borderRadius: 999,
-                                                        overflow: "hidden",
-                                                        marginRight: 4,
-                                                      }}
-                                                    >
-                                                      {chain.iconUrl && (
-                                                        <img
-                                                          alt={
-                                                            chain.name ??
-                                                            "Chain icon"
-                                                          }
-                                                          src={chain.iconUrl}
-                                                          style={{
-                                                            width: 12,
-                                                            height: 12,
-                                                          }}
-                                                        />
-                                                      )}
-                                                    </div>
-                                                  )}
-                                                  {chain.name}
-                                                </button>
+                                                {chain.hasIcon && (
+                                                  <div
+                                                    style={{
+                                                      background:
+                                                        chain.iconBackground,
+                                                      width: 12,
+                                                      height: 12,
+                                                      borderRadius: 999,
+                                                      overflow: "hidden",
+                                                      marginRight: 4,
+                                                    }}
+                                                  >
+                                                    {chain.iconUrl && (
+                                                      <img
+                                                        alt={
+                                                          chain.name ??
+                                                          "Chain icon"
+                                                        }
+                                                        src={chain.iconUrl}
+                                                        style={{
+                                                          width: 12,
+                                                          height: 12,
+                                                        }}
+                                                      />
+                                                    )}
+                                                  </div>
+                                                )}
+                                                {chain.name}
+                                              </button>
 
-                                                <button
-                                                  onClick={openAccountModal}
-                                                  type="button"
-                                                >
-                                                  {account.displayName}
-                                                </button>
-                                              </div>
-                                            )}
-                                          </>
-                                        );
-                                      }}
-                                    </ConnectButton.Custom>
-                                  </>
-                                );
-                              }
+                                              <button
+                                                onClick={openAccountModal}
+                                                type="button"
+                                              >
+                                                {account.displayName}
+                                              </button>
+                                            </div>
+                                          )}
+                                        </>
+                                      );
+                                    }}
+                                  </ConnectButton.Custom>
+                                </>
+                              );
                             })()}
                           </span>
                         ) : (

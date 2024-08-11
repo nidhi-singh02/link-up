@@ -5,7 +5,6 @@ import logingrp from "../assets/logingrp.svg";
 import { RiWallet3Fill } from "react-icons/ri";
 import Link from "next/link";
 import "@rainbow-me/rainbowkit/styles.css";
-import { WalletConnector } from "@aptos-labs/wallet-adapter-mui-design";
 import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 import {
@@ -49,104 +48,80 @@ export default function Page() {
 
                     <span>
                       {(() => {
-                        if (selectedNetwork === "Polygon") {
-                          return (
-                            <ConnectButton.Custom>
-                              {({
-                                account,
-                                chain,
-                                openAccountModal,
-                                openChainModal,
-                                openConnectModal,
-                                authenticationStatus,
-                                mounted,
-                              }) => {
-                                const ready =
-                                  mounted && authenticationStatus !== "loading";
-                                const connected =
-                                  ready &&
-                                  account &&
-                                  chain &&
-                                  (!authenticationStatus ||
-                                    authenticationStatus === "authenticated");
+                        return (
+                          <ConnectButton.Custom>
+                            {({
+                              account,
+                              chain,
+                              openAccountModal,
+                              openChainModal,
+                              openConnectModal,
+                              authenticationStatus,
+                              mounted,
+                            }) => {
+                              const ready =
+                                mounted && authenticationStatus !== "loading";
+                              const connected =
+                                ready &&
+                                account &&
+                                chain &&
+                                (!authenticationStatus ||
+                                  authenticationStatus === "authenticated");
 
-                                return (
-                                  <>
-                                    {!connected ? (
-                                      <button
-                                        onClick={openConnectModal}
-                                        className="bg-[#F24E80] flex justify-center gap-10 items-center mt-5 text-white text-lg w-72 py-4 rounded-full"
-                                      >
-                                        <RiWallet3Fill className="text-[#F24E80] bg-white px-2 rounded-full text-4xl" />
-                                        Login with Wallet
-                                      </button>
-                                    ) : chain.unsupported ? (
+                              return (
+                                <>
+                                  {!connected ? (
+                                    <button
+                                      onClick={openConnectModal}
+                                      className="bg-[#F24E80] flex justify-center gap-10 items-center mt-5 text-white text-lg w-72 py-4 rounded-full"
+                                    >
+                                      <RiWallet3Fill className="text-[#F24E80] bg-white px-2 rounded-full text-4xl" />
+                                      Login with Wallet
+                                    </button>
+                                  ) : chain.unsupported ? (
+                                    <button
+                                      onClick={openChainModal}
+                                      type="button"
+                                    >
+                                      Wrong network
+                                    </button>
+                                  ) : (
+                                    <div className="wallet-info-container">
                                       <button
                                         onClick={openChainModal}
+                                        className="wallet-info-button"
                                         type="button"
                                       >
-                                        Wrong network
+                                        {chain.hasIcon && (
+                                          <div className="wallet-icon">
+                                            {chain.iconUrl && (
+                                              <img
+                                                alt={chain.name ?? "Chain icon"}
+                                                src={chain.iconUrl}
+                                              />
+                                            )}
+                                          </div>
+                                        )}
+                                        {chain.name}
                                       </button>
-                                    ) : (
-                                      <div className="wallet-info-container">
-                                        <button
-                                          onClick={openChainModal}
-                                          className="wallet-info-button"
-                                          type="button"
-                                        >
-                                          {chain.hasIcon && (
-                                            <div className="wallet-icon">
-                                              {chain.iconUrl && (
-                                                <img
-                                                  alt={
-                                                    chain.name ?? "Chain icon"
-                                                  }
-                                                  src={chain.iconUrl}
-                                                />
-                                              )}
-                                            </div>
-                                          )}
-                                          {chain.name}
-                                        </button>
 
-                                        <button
-                                          onClick={openAccountModal}
-                                          className="wallet-info-button"
-                                          type="button"
-                                        >
-                                          {account.displayName}
-                                          {account.displayBalance
-                                            ? ` (${account.displayBalance})`
-                                            : ""}
-                                        </button>
-                                      </div>
-                                    )}
-                                  </>
-                                );
-                              }}
-                            </ConnectButton.Custom>
-                          );
-                        } else if (selectedNetwork === "Nillion/Diam") {
-                          return (
-                            <div className="flex flex-col items-center gap-4">
-                              <input
-                                type="text"
-                                placeholder="Username"
-                                className="border border-[#F24E80] rounded-full px-4 py-2"
-                              />
-                              <input
-                                type="password"
-                                placeholder="Password"
-                                className="border border-[#F24E80] rounded-full px-4 py-2"
-                              />
-                              <button className="bg-[#F24E80] text-white px-4 py-2 rounded-full">
-                                Login
-                              </button>
-                            </div>
-                          );
-                        } else if (selectedNetwork === "Aptos") {
-                          return <WalletConnector />;
-                        }
+                                      <button
+                                        onClick={openAccountModal}
+                                        className="wallet-info-button"
+                                        type="button"
+                                      >
+                                        {account.displayName}
+                                        {account.displayBalance
+                                          ? ` (${account.displayBalance})`
+                                          : ""}
+                                      </button>
+                                    </div>
+                                  )}
+                                </>
+                              );
+                            }}
+                          </ConnectButton.Custom>
+                        );
                       })()}
                     </span>
                     <p className="pt-10 font-semibold text-[15px]">
